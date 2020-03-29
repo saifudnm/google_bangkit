@@ -84,7 +84,7 @@ if __name__ == "__main__":
         
         history = model.fit(X_train, y_train,
                             batch_size=50,
-                            epochs=500,
+                            epochs=200,
                             verbose=1)
         
         y_pred = model.predict(X_test)

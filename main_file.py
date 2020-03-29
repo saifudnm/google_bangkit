@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import time
-from Module import Excel
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
@@ -19,8 +18,8 @@ def periode(comodity_data, periode_numb):
     return data_lag
 
 def load_data(comodity_numb):
-    comodities_data = pd.read_excel("data/induk_kramat_jati.xlsx", sheet_name='Sheet1')
-    comodities_data.set_index('Tanggal', inplace=True)
+    comodities_data = pd.read_csv("data/shallot.csv")
+    comodities_data.set_index('Date', inplace=True)
     select_comodity = comodities_data.iloc[:,comodity_numb-1:comodity_numb]
     
     # Normalization
@@ -107,13 +106,7 @@ if __name__ == "__main__":
         rmse = np.sqrt(mean_squared_error(
                 y_test_denormalization, y_pred_denormalization))
         
-        scaler.inverse_transform(model.predict(
-                scaler.inverse_transform(data_bm.iloc[-1:,0:1])))
-        # import to excel
-# =============================================================================
-#         import_to_excel = Excel(time_total, mape, rmse)
-#         import_to_excel.sheet_code(7)
-# =============================================================================
-        
+        forecast_result = scaler.inverse_transform(model.predict(
+                data_bm.iloc[-1:,0:1]))
         
         

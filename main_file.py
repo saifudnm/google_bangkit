@@ -50,8 +50,9 @@ def error_graph():
 def graph():
     fig = plt.figure()
     a1 = fig.add_axes([0,0,1,1])
-    a1.plot(y_test)
-    a1.plot(y_pred)
+    a1.plot(y_test_denormalization, label='aktual')
+    a1.plot(y_pred_denormalization, label='forecast')
+    plt.legend(loc='upper right')
     plt.show
     
 if __name__ == "__main__":
@@ -97,7 +98,7 @@ if __name__ == "__main__":
         y_test_denormalization = scaler.inverse_transform(y_test)
         
         error_graph()
-        #graph()
+        graph()
         
         print(rbflayer.get_weights())
         # MAPE
